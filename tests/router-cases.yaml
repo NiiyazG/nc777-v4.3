@@ -1,0 +1,169 @@
+{
+  "version": "4.3",
+  "cases": [
+    {
+      "id": "docs_typo",
+      "input": "Исправь опечатку в README",
+      "risk": "GREEN",
+      "required": [
+        "Developer",
+        "QA"
+      ],
+      "optional": [
+        "Documenter"
+      ],
+      "forbidden": [
+        "Pitbull",
+        "Saboteur",
+        "Deployer"
+      ],
+      "qa_fallback_without_architect": true
+    },
+    {
+      "id": "small_bug",
+      "input": "Исправь локальный баг форматирования даты",
+      "risk": "GREEN",
+      "required": [
+        "Developer",
+        "QA"
+      ],
+      "optional": [
+        "Cleaner",
+        "Documenter"
+      ],
+      "forbidden": [
+        "Reviewer",
+        "Pitbull"
+      ],
+      "qa_fallback_without_architect": true
+    },
+    {
+      "id": "expected_tdd_red",
+      "input": "Напиши failing test для нового поведения и реализуй его",
+      "risk": "YELLOW",
+      "required": [
+        "Developer",
+        "QA"
+      ],
+      "failure_class": "EXPECTED_RED",
+      "forbidden": [
+        "Pitbull"
+      ],
+      "invariant": "Intentional RED stays with Developer until implementation handoff"
+    },
+    {
+      "id": "implementation_gap",
+      "input": "QA обнаружил, что новая фича не соответствует согласованному contract",
+      "risk": "YELLOW",
+      "entry": "Developer",
+      "required": [
+        "Developer",
+        "QA"
+      ],
+      "failure_class": "IMPLEMENTATION_GAP",
+      "forbidden": [
+        "Pitbull"
+      ]
+    },
+    {
+      "id": "oauth_feature",
+      "input": "Добавь OAuth login в существующее приложение",
+      "risk": "RED",
+      "required": [
+        "Prophet",
+        "Architect",
+        "Reviewer",
+        "Developer",
+        "QA",
+        "Guardian"
+      ],
+      "optional": [
+        "Saboteur",
+        "Cleaner",
+        "Documenter",
+        "Deployer"
+      ],
+      "forbidden": [
+        "Pitbull"
+      ],
+      "invariants": [
+        "Reviewer double pass for RED when feasible",
+        "Saboteur consumes QA primary_lens",
+        "Any post-PASS production edit requires QA"
+      ]
+    },
+    {
+      "id": "failing_test",
+      "input": "После изменения падает ранее зелёный pytest",
+      "risk": "YELLOW",
+      "entry": "Pitbull",
+      "required": [
+        "Pitbull",
+        "QA"
+      ],
+      "failure_class": "REGRESSION",
+      "forbidden_before_recovery": [
+        "Cleaner",
+        "Deployer"
+      ]
+    },
+    {
+      "id": "prod_incident",
+      "input": "После релиза сервис падает на части запросов",
+      "risk": "RED",
+      "entry": "Pitbull",
+      "required": [
+        "Pitbull",
+        "QA"
+      ],
+      "failure_class": "INCIDENT"
+    },
+    {
+      "id": "refactor",
+      "input": "Упрости модуль без изменения поведения",
+      "risk": "YELLOW",
+      "required": [
+        "Developer",
+        "QA"
+      ],
+      "optional": [
+        "Architect",
+        "Saboteur",
+        "Cleaner"
+      ],
+      "invariant": "Cleaner production edits invalidate PASS and route QA"
+    },
+    {
+      "id": "security_audit",
+      "input": "Проведи security audit API",
+      "risk": "RED",
+      "entry": "Guardian",
+      "required": [
+        "Guardian"
+      ],
+      "invariant": "Any security production fix returns through QA then Guardian re-check"
+    },
+    {
+      "id": "agent_security",
+      "input": "Проверь безопасность AI-агента с tool use",
+      "risk": "RED",
+      "entry": "Guardian",
+      "required": [
+        "Guardian"
+      ],
+      "playbook": "llm-agent-security"
+    },
+    {
+      "id": "deploy_verified",
+      "input": "Задеплой уже проверенный артефакт",
+      "risk": "RED",
+      "required": [
+        "Deployer"
+      ],
+      "optional": [
+        "Guardian"
+      ],
+      "invariant": "Deployed artifact_id must match final QA PASS"
+    }
+  ]
+}
