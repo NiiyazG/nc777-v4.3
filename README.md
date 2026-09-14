@@ -1,5 +1,8 @@
 # NC 777 v4.3 — Role Operating System
 
+![NC 777 v4.3](nc777-v4.3.png)
+
+
 11-role operating system for AI agents with risk-driven routing, explicit artifact contracts, failure ownership, independent verification, adversarial second-lens testing, recovery, security and release gates.
 
 ## What v4.3 changes
